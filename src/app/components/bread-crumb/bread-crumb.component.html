@@ -1,0 +1,16 @@
+<nav *ngIf="breadcrumbs.length > 0" aria-label="breadcrumb" class="bg-gray-100 py-3 px-4 rounded-md">
+    <ol class="flex space-x-2 text-gray-700">
+      <li *ngFor="let breadcrumb of breadcrumbs; let last = last" class="flex items-center">
+        <ng-container *ngIf="!last">
+          <a [routerLink]="breadcrumb.url" class="hover:text-blue-500 text-sm sm:text-base">
+            {{ breadcrumb.label }}
+          </a>
+          <span class="mx-2">></span>
+        </ng-container>
+        <span *ngIf="last" class="text-gray-500 text-sm sm:text-base font-medium">
+          {{ breadcrumb.label }}
+        </span>
+      </li>
+    </ol>
+  </nav>
+  

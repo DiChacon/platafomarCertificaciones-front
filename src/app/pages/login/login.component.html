@@ -1,0 +1,74 @@
+<div class="flex flex-col md:flex-row min-h-screen bg-cover bg-center" style="background-image: url('https://via.placeholder.com/1200x800'); background-size: cover;">
+  <!-- Sección izquierda (título y redes sociales) -->
+  <div class="flex flex-col justify-center items-center w-full md:w-1/2 p-4 sm:p-8 mt-6 sm:mt-12 lg:mt-16">
+    <div class="flex space-x-3 sm:space-x-5 md:space-x-8 mb-6 sm:mb-10 self-start -mt-9 sm:-mt-10 md:-mt-11 mx-8 sm:mx-20">
+      <!-- Iconos de Redes Sociales -->
+      <a href="#"><i class="fab fa-facebook text-2xl sm:text-3xl md:text-4xl"></i></a>
+      <a href="#"><i class="fab fa-youtube text-2xl sm:text-3xl md:text-4xl"></i></a>
+      <a href="#"><i class="fab fa-whatsapp text-2xl sm:text-3xl md:text-4xl"></i></a>
+      <a href="#"><i class="fab fa-instagram text-2xl sm:text-3xl md:text-4xl"></i></a>
+      <a href="#"><i class="fab fa-twitter text-2xl sm:text-3xl md:text-4xl"></i></a>
+    </div>
+    <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-9xl mb-4 w-11/12 sm:w-3/4 mx-4 md:mx-0">Valida tu certificado</h1>
+    <p class="text-gray-600 text-sm sm:text-lg mb-2 self-start mx-8 sm:mx-20 md:mx-32">¿Quieres verificar que un certificado es válido?</p>
+    <a href="#" class="text-blue-500 font-medium hover:underline self-start mx-8 sm:mx-20 md:mx-32">Hazlo aquí</a>
+  </div>
+
+  <!-- Sección derecha (Formulario de Login) -->
+  <div class="flex flex-col justify-center items-center w-full md:w-1/2 p-4 sm:p-8 mt-6 sm:mt-12 lg:mt-16">
+    <div class="w-full max-w-xs sm:max-w-sm md:max-w-md p-4 sm:p-6 lg:p-8 bg-white rounded-xl border-4 border-gray-500">
+      <h2 class="text-center text-lg sm:text-xl md:text-2xl font-semibold mb-4">Iniciar Sesión</h2>
+      <div class="flex justify-center mb-4 sm:mb-6">
+        <img src="https://via.placeholder.com/100" alt="Logo Placeholder" class="w-16 h-16 sm:w-24 sm:h-24">
+      </div>
+      <form [formGroup]="loginForm" class="space-y-4 flex flex-col items-center" (ngSubmit)="login(loginForm.value)">
+        <!-- Campo de correo electrónico -->
+        <div class="relative w-full flex flex-col items-center">
+          <label for="email" class="sr-only">Correo electrónico</label>
+          <input
+            formControlName="username"
+            type="text"
+            id="email"
+            placeholder="mail@gmail.com"
+            class="w-3/4 px-4 py-2 border rounded-md bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:bg-white"
+            name="email"
+            required
+          >
+          <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" class="text-red-500 text-sm mt-1 w-3/4">
+            <p *ngIf="loginForm.get('username')?.errors?.['required']">El correo es obligatorio.</p>
+            <p *ngIf="loginForm.get('username')?.errors?.['email']">Formato de correo incorrecto.</p>
+          </div>
+        </div>
+
+        <!-- Campo de contraseña -->
+        <div class="relative w-full flex flex-col items-center">
+          <label for="password" class="sr-only">Contraseña</label>
+          <input
+            formControlName="password"
+            type="password"
+            id="password"
+            placeholder="********"
+            class="w-3/4 px-4 py-2 border rounded-md bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:bg-white"
+            name="password"
+            required
+          >
+          <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-red-500 text-sm mt-1 w-3/4">
+            <p *ngIf="loginForm.get('password')?.errors?.['required']">La contraseña es obligatoria.</p>
+          </div>
+        </div>
+
+        <!-- Botón de envío -->
+        <button
+          type="submit"
+          [disabled]="loginForm.invalid"
+          class="w-3/4 py-2 text-white font-semibold bg-green-500 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 disabled:bg-gray-400 disabled:cursor-not-allowed">
+          Ingresar
+        </button>
+        <div class="text-center mt-4">
+          <p class="text-gray-600 text-xs sm:text-sm">¿Olvidaste tu contraseña?</p>
+          <a href="#" class="text-blue-500 hover:underline">Recupérala aquí</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

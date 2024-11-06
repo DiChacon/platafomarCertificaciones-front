@@ -1,0 +1,32 @@
+<div class="flex flex-col items-start justify-center min-h-screen bg-white p-6 space-y-4 text-left w-full max-w-xl pb-32">
+  <!-- Título -->
+  <h1 class="text-4xl font-semibold text-gray-700">Examen de Certificación</h1>
+  
+  <!-- Subtítulo -->
+  <p class="text-2xl text-blue-500">para el curso: nombre curso</p>
+  
+  <!-- Texto descriptivo con cuadro de menor ancho y scroll -->
+  <div class="bg-gray-100 p-4 rounded-md border border-gray-300 max-h-48 overflow-y-auto w-full max-w-md text-gray-600 leading-relaxed">
+    <p>Este es el texto de introducción o acuerdo que los usuarios deben leer antes de iniciar el examen. Puedes agregar cualquier texto aquí para explicar los términos y condiciones del examen, las políticas de privacidad o cualquier otra información relevante.</p>
+    <p class="mt-2">Por favor, asegúrate de leer todo cuidadosamente antes de continuar. Este texto de ejemplo es más largo para demostrar cómo el contenido se desplaza en el cuadro cuando excede el espacio visible.</p>
+    <p class="mt-2">Puedes seguir agregando más contenido aquí para simular un texto extenso. Esto es importante para los usuarios, ya que deberán aceptar los términos antes de proceder.</p>
+  </div>
+  
+  <!-- Formulario -->
+  <form [formGroup]="examenForm" (ngSubmit)="iniciarExamen()" class="w-full">
+    <!-- Checkbox de aceptación -->
+    <div class="flex items-center space-x-2 mt-4">
+      <input type="checkbox" id="agree" formControlName="aceptarTerminos" class="form-checkbox text-blue-500">
+      <label for="agree" class="text-gray-600 text-sm">Estoy de acuerdo en...</label>
+    </div>
+    <div *ngIf="examenForm.get('aceptarTerminos')?.invalid && examenForm.get('aceptarTerminos')?.touched" class="text-red-500 text-sm">
+      Debe aceptar los términos antes de continuar.
+    </div>
+    
+    <!-- Botón de inicio del examen -->
+    <button type="submit" class="mt-4 bg-blue-500 text-white font-semibold py-2 px-6 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-400 disabled:cursor-not-allowed"
+      [disabled]="examenForm.invalid">
+      Iniciar examen
+    </button>
+  </form>
+</div>

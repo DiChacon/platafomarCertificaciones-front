@@ -1,0 +1,59 @@
+<div class="flex flex-col items-start justify-center min-h-screen bg-white p-2 sm:p-4 md:p-6 lg:p-8 space-y-4 md:space-y-6 text-left w-full relative">
+  <!-- Título principal -->
+  <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-700">Certificación para nombre curso</h1>
+  
+  <!-- Formulario -->
+  <form [formGroup]="preguntaForm" class="w-full space-y-4" (ngSubmit)="onSubmit()">
+    <!-- Subtítulo -->
+    <p class="text-sm sm:text-base md:text-lg lg:text-xl text-blue-500 mb-2 sm:mb-4">Pregunta aleatoria del examen</p>
+    
+    <!-- Contenido de la pregunta y opciones -->
+    <div class="space-y-3 sm:space-y-4">
+      <label class="flex items-center space-x-2">
+        <input type="radio" formControlName="respuestaSeleccionada" value="opcion1" class="form-radio text-blue-500 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6">
+        <span class="text-gray-700 text-xs sm:text-sm md:text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+      </label>
+      <label class="flex items-center space-x-2">
+        <input type="radio" formControlName="respuestaSeleccionada" value="opcion2" class="form-radio text-blue-500 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6">
+        <span class="text-gray-700 text-xs sm:text-sm md:text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+      </label>
+      <label class="flex items-center space-x-2">
+        <input type="radio" formControlName="respuestaSeleccionada" value="opcion3" class="form-radio text-blue-500 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6">
+        <span class="text-gray-700 text-xs sm:text-sm md:text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+      </label>
+      <label class="flex items-center space-x-2">
+        <input type="radio" formControlName="respuestaSeleccionada" value="opcion4" class="form-radio text-blue-500 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6">
+        <span class="text-gray-700 text-xs sm:text-sm md:text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+      </label>
+    </div>
+
+    <!-- Mensaje de error -->
+    <div *ngIf="preguntaForm.get('respuestaSeleccionada')?.invalid && preguntaForm.get('respuestaSeleccionada')?.touched" class="text-red-500 text-sm">
+      <p>Debe seleccionar una respuesta.</p>
+    </div>
+    
+    <!-- Botones de navegación -->
+    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mt-4 w-full">
+      <button type="button" class="bg-gray-200 text-gray-700 font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-md hover:bg-gray-300 w-full sm:w-auto text-xs sm:text-sm md:text-base">Anterior</button>
+      <button type="submit" [disabled]="preguntaForm.invalid" class="bg-blue-500 text-white font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-md hover:bg-blue-600 w-full sm:w-auto text-xs sm:text-sm md:text-base disabled:bg-gray-400 disabled:cursor-not-allowed">Siguiente</button>
+    </div>
+
+    <!-- Botón Finalizar -->
+    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mt-4 w-full">
+      <button type="button" [disabled]="preguntaForm.invalid" (click)="openFinalizarModal()" class="bg-green-800 text-white font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-md hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs sm:text-sm md:text-base disabled:bg-gray-400 disabled:cursor-not-allowed">Finalizar</button>
+    </div>
+  </form>
+
+  <!-- Modales -->
+  <app-modal-finalizar-examen *ngIf="isFinalizarModalOpen" (closeModal)="closeFinalizarModal()" (openNextModal)="closeFinalizarModal(); openExamenEnviadoModal()"></app-modal-finalizar-examen>
+  <app-modal-examen-enviado *ngIf="isExamenEnviadoModalOpen" (closeModal)="closeExamenEnviadoModal()"></app-modal-examen-enviado>
+
+  <!-- Contadores -->
+  <div class="absolute top-14 sm:top-14 md:top-14 right-3 md:right-10 flex items-center space-x-1 bg-gray-100 p-1 md:p-2 rounded-md shadow text-xs sm:text-sm md:text-base">
+    <span class="text-gray-700 font-semibold">14:55</span>
+  </div>
+  
+  <div class="absolute bottom-20 sm:bottom-20 md:bottom-20 right-3 md:right-10 bg-gray-100 p-1 md:p-2 rounded-md shadow text-gray-700 font-semibold text-xs sm:text-sm md:text-base">
+    13/60
+  </div>
+</div>

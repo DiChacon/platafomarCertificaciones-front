@@ -1,0 +1,30 @@
+<header class="bg-azul w-full flex justify-between items-center h-16 px-4 text-gray-700 fixed top-0 left-0 z-10" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+  <!-- Logo y Navegación -->
+  <div class="flex items-center space-x-3 sm:space-x-4">
+    <img src="https://via.placeholder.com/50" alt="Logo Placeholder" class="w-8 sm:w-10 h-8 sm:h-10">
+    <nav class="flex space-x-2 sm:space-x-4 text-xs sm:text-sm">
+      <span class="text-white hover:text-red-600 cursor-pointer" (click)="navigateTo('inicio')">Inicio</span>
+      <span class="text-white hover:text-red-500 cursor-pointer" (click)="navigateTo('inicio/certificaciones')">Certificaciones</span>
+      <span class="text-white hover:text-red-500 cursor-pointer" (click)="navigateTo('contacto')">Contáctanos</span>
+      <span class="text-white hover:text-red-500 cursor-pointer" (click)="navigateTo('inicio/registro')">Agregar usuario</span>
+      <span class="text-white hover:text-red-500 cursor-pointer" (click)="navigateTo('inicio/admin-examen')">Administrar examen</span>
+    </nav>
+  </div>
+
+  <!-- Iconos y Usuario -->
+  <div class="flex items-center space-x-2 sm:space-x-4">
+    <div class="flex items-center space-x-1 sm:space-x-2">
+      <img src="https://via.placeholder.com/30" alt="User Icon" class="hidden sm:block w-8 h-8 rounded-full">
+      <div class="hidden sm:block text-xs sm:text-sm">
+        <p class="font-semibold">Usuario User</p>
+        <p class="text-gray-500">Institución</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Subheader -->
+<div class="w-full flex justify-between items-center h-30 px-4 mt-16 pt-4 bg-gray-500">
+  <img src="https://via.placeholder.com/100" alt="Placeholder Left" class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20">
+  <img src="https://via.placeholder.com/100" alt="Placeholder Right" class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20">
+</div>

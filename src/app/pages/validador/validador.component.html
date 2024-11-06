@@ -1,0 +1,44 @@
+<div class="flex justify-center items-center min-h-screen bg-white p-4">
+  <!-- Contenedor Principal -->
+  <div class="flex flex-col md:flex-row items-center bg-white p-8 rounded-lg space-y-4 md:space-y-0 md:space-x-20 max-w-4xl">
+    
+    <!-- Imagen de Placeholder -->
+    <div class="flex items-center justify-center w-full md:w-auto mt-8 md:mt-0">
+      <img src="https://via.placeholder.com/600" alt="Imagen Placeholder" class="rounded-lg shadow-md w-full sm:w-11/12 md:w-[800px] lg:w-[500px] xl:w-[1500px] h-auto">
+    </div>
+
+    <!-- Formulario de Validación -->
+    <form [formGroup]="validadorForm" class="w-full h-full flex flex-col items-center p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-md" (ngSubmit)="validador(validadorForm.value)">
+      <h2 class="text-lg font-semibold text-gray-700 mb-4">Valida tu certificado</h2>
+      <p class="text-sm text-gray-600 mb-2">Ingresa el folio con 8 dígitos:</p>
+      
+      <!-- Campo de Folio -->
+      <input
+        formControlName="folio"
+        type="text"
+        placeholder="F-12345678"
+        class="w-full border border-gray-300 rounded-md px-4 py-2 text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-4"
+      >
+      <div *ngIf="validadorForm.get('folio')?.invalid && validadorForm.get('folio')?.touched" class="text-red-500 text-sm mt-1 w-full">
+        <p *ngIf="validadorForm.get('folio')?.errors?.['required']">El folio es obligatorio.</p>
+      </div>
+      
+      <!-- ReCAPTCHA Placeholder -->
+      <div class="w-full h-16 bg-gray-200 flex justify-center items-center rounded-md mb-4">
+        <p class="text-gray-600">no soy un robot</p>
+        <!-- Aquí podrías integrar el reCAPTCHA de Google -->
+      </div>
+      
+      <!-- Botón de Validación -->
+      <button
+        type="submit"
+        [disabled]="validadorForm.invalid"
+        class="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-400 disabled:cursor-not-allowed">
+        Validar
+      </button>
+    </form>
+    
+    <!-- Modal -->
+    <app-modal *ngIf="isModalOpen" (closeModal)="closeModal()"></app-modal>
+  </div>
+</div>
