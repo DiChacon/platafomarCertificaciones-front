@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalAgregarExamenComponent } from "../../components/modal-agregar-examen/modal-agregar-examen.component";
 import { Router } from '@angular/router';
 import { ModalEliminarExamenComponent } from '../../components/modal-eliminar-examen/modal-eliminar-pregunta.component';
+import { ExamenService } from '../../services/examen.service'; // Importar el servicio de exámenes
 
 @Component({
   selector: 'app-examen-admin',
@@ -11,23 +12,38 @@ import { ModalEliminarExamenComponent } from '../../components/modal-eliminar-ex
   templateUrl: './examen-admin.component.html',
   styleUrl: './examen-admin.component.scss'
 })
-export class ExamenAdminComponent {
-  exams = [
-    { number: '#001', title: 'Vex Robótica II', lastModified: '05/01/2024' },
-    { number: '#002', title: 'Vex Robótica II', lastModified: '05/01/2024' },
-    { number: '#003', title: 'Vex Robótica II', lastModified: '06/01/2024' },
-    { number: '#004', title: 'Vex Robótica II', lastModified: '07/01/2024' }
-  ];
-  constructor(private router: Router) {}
+export class ExamenAdminComponent implements OnInit {
+  exams: any[] = []; // Definir `exams` para almacenar los exámenes desde la base de datos
+  
+  constructor(private router: Router, private examenService: ExamenService) {} // Inyectar ExamenService
+
+  ngOnInit() {
+    this.obtenerExamenes();
+  }
+
+  async obtenerExamenes() {
+    try {
+      const response = await this.examenService.obtenerTodosLosExamenes();
+      console.log(response)
+      // Asegura que response.data es un arreglo antes de mapearlo
+      this.exams = response.data.map((examen: any) => ({
+        number: examen.id_examen,
+        title: examen.nombre_examen,
+        lastModified: examen.updatedAt || 'No disponible' // Actualiza esto según la propiedad real de fecha si existe
+      }));
+    } catch (error) {
+      console.error('Error al obtener los exámenes:', error);
+    }
+  }
 
   // Método para navegar a la página de visualización del examen
   viewExam() {
     this.router.navigate(['inicio/admin-examen/ver-examen']);
   }
+
   editExam() {
     this.router.navigate(['inicio/admin-examen/admin-pregunta']);
   }
-
 
   isModalAgregarOpen = false;
   isModalEliminarOpen = false;
@@ -47,9 +63,7 @@ export class ExamenAdminComponent {
   handleEliminarExamen(confirmado: boolean) {
     this.isModalEliminarOpen = false;
     if (confirmado) {
-      // Lógica para eliminar la pregunta seleccionada
-      console.log("examen eliminado");
+      console.log("Examen eliminado");
     }
   }
-
 }

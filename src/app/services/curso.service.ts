@@ -11,6 +11,16 @@ export class CursoService {
   constructor(private httpClient: HttpClient) {
     this.url = environment.API_URL;
   }
+    // Método para obtener todos los cursos
+    async obtenerTodosLosCursos(): Promise<any> {
+      try {
+        const res = await this.httpClient.get(`${this.url}/find_cursos`).toPromise();
+        return res;
+      } catch (error) {
+        console.error('Error al obtener todos los cursos:', error);
+        throw error;
+      }
+    }
 
   // Método para obtener un curso por su ID
   async obtenerCurso(cursoId: number): Promise<any> {
