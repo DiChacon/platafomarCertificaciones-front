@@ -45,29 +45,23 @@ export class PreguntaService {
   }
   // metodo para agregar una pregunta
   async agregarPregunta(data: any){
-    const res: any = await this.httpClient.post(this.url+'/agregarPregunta',data).toPromise();
+    const res: any = await this.httpClient.post(this.url+'/create_pregunta',data).toPromise();
     return res;
 }
-  // Método para borrar una pregunta
-  async borrarPregunta(preguntaId: string): Promise<any> {
-    try {
-      const res: any = await this.httpClient.delete(`${this.url}/preguntas/${preguntaId}`).toPromise();
-      return res;
-    } catch (error) {
-      console.error('Error al borrar la pregunta:', error);
-      throw error;
+    // Método para borrar una pregunta
+    async borrarPregunta(preguntaId: string): Promise<any> {
+      try {
+        const res: any = await this.httpClient.delete(`${this.url}/delete_pregunta/${preguntaId}`).toPromise();
+        return res;
+      } catch (error) {
+        console.error('Error al borrar la pregunta:', error);
+        throw error;
+      }
     }
-  }
 
-  // Método para actualizar una pregunta 
-  async actualizarPregunta(preguntaId: string, data: any): Promise<any> {
-    try {
-      const res: any = await this.httpClient.put(`${this.url}/preguntas/${preguntaId}`, data).toPromise();
-      return res;
-    } catch (error) {
-      console.error('Error al actualizar la pregunta:', error);
-      throw error;
-    }
+  // Método para actualizar una pregunta existente
+  async actualizarPregunta(id: string, data: any): Promise<any> {
+    return await this.httpClient.put(`${this.url}/update_pregunta/${id}`, data).toPromise();
   }
 
 }

@@ -9,10 +9,12 @@ import { PreguntaService } from '../../services/pregunta.service';
   standalone: true,
   imports: [CommonModule, ModalEliminarPreguntaComponent],
   templateUrl: './pregunta-admin.component.html',
-  styleUrl: './pregunta-admin.component.scss'
+  styleUrls: ['./pregunta-admin.component.scss']
 })
 export class PreguntaAdminComponent implements OnInit {
   questions: any[] = [];
+  isModalEliminarOpen = false;
+  preguntaSeleccionadaId: string | null = null; // ID de la pregunta seleccionada
 
   constructor(private router: Router, private preguntaService: PreguntaService) {}
 
@@ -24,7 +26,6 @@ export class PreguntaAdminComponent implements OnInit {
     try {
       const response = await this.preguntaService.obtenerTodasLasPreguntas();
       console.log('Preguntas recibidas:', response);
-      
       if (response.ok) {
         this.questions = response.data;
       } else {
@@ -36,23 +37,38 @@ export class PreguntaAdminComponent implements OnInit {
   }
 
   viewQuestion(id_pregunta: string) {
-    this.router.navigate(['inicio/admin-examen/admin-pregunta/ver-pregunta', { id_pregunta: id_pregunta}]);
+    this.router.navigate(['inicio/admin-examen/admin-pregunta/ver-pregunta', { id_pregunta }]);
   }
 
-  editQuestion() {
-    this.router.navigate(['inicio/admin-examen/admin-pregunta/editar-pregunta']);
+  editQuestion(id_pregunta: string) {
+    this.router.navigate(['inicio/admin-examen/admin-pregunta/editar-pregunta', { id_pregunta }]);
   }
 
-  isModalEliminarOpen = false;
+  goToAgregarPregunta() {
+    this.router.navigate(['inicio/admin-examen/admin-pregunta/agregar-pregunta']);
+  }
 
-  openModalEliminar() {
+  openModalEliminar(id_pregunta: string) {
+    this.preguntaSeleccionadaId = id_pregunta; // Almacena el ID de la pregunta a eliminar
     this.isModalEliminarOpen = true;
   }
 
-  handleEliminarPregunta(confirmado: boolean) {
+  async handleEliminarPregunta(confirmado: boolean) {
     this.isModalEliminarOpen = false;
-    if (confirmado) {
-      console.log("Pregunta eliminada");
+    if (confirmado && this.preguntaSeleccionadaId) {
+      try {
+        const response = await this.preguntaService.borrarPregunta(this.preguntaSeleccionadaId);
+        if (response.ok) {
+          this.questions = this.questions.filter(q => q.id_pregunta !== this.preguntaSeleccionadaId);
+          console.log("Pregunta eliminada");
+        } else {
+          console.error('Error al eliminar la pregunta:', response.message);
+        }
+      } catch (error) {
+        console.error('Error en la eliminación de la pregunta:', error);
+      } finally {
+        this.preguntaSeleccionadaId = null; // Resetea el ID seleccionado
+      }
     }
   }
 }

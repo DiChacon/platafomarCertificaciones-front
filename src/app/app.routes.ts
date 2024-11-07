@@ -13,6 +13,7 @@ import { ExamenPreguntasComponent } from './pages/ver-examen/ver-examen.componen
 import { PreguntaAdminComponent } from './pages/pregunta-admin/pregunta-admin.component';
 import { VerPreguntaComponent } from './pages/ver-pregunta/ver-pregunta.component';
 import { EditarPreguntaComponent } from './pages/editar-pregunta/editar-pregunta.component';
+import { AgregarPreguntaComponent } from './pages/agregar-pregunta/agregar-pregunta.component';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent, data: { breadcrumb: 'Inicio' } },
@@ -29,5 +30,6 @@ export const routes: Routes = [
     { path: 'inicio/admin-examen/admin-pregunta', component: PreguntaAdminComponent, data: { breadcrumb: 'Admin Pregunta' } },
     { path: 'inicio/admin-examen/admin-pregunta/ver-pregunta', component: VerPreguntaComponent, data: { breadcrumb: 'Ver Pregunta' } },
     { path: 'inicio/admin-examen/admin-pregunta/editar-pregunta', component: EditarPreguntaComponent, data: { breadcrumb: 'Editar Pregunta' } },
+    { path: 'inicio/admin-examen/admin-pregunta/agregar-pregunta', component: AgregarPreguntaComponent, data: { breadcrumb: 'Agregar Pregunta' } },
   ];
   

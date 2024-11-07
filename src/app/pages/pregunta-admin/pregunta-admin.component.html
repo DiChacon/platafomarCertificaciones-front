@@ -1,58 +1,58 @@
 <div class="p-6 w-full mx-auto space-y-8 pb-32">
     <!-- Encabezado con Título y Botón de Agregar -->
     <div class="flex items-center justify-center space-x-4">
-        <h1 class="text-gray-700 font-semibold text-2xl sm:text-3xl md:text-4xl">Administración de Preguntas</h1>
-        <!-- Botón de agregar pregunta -->
-        <button class="text-3xl sm:text-4xl text-black hover:text-blue-700">
-            <i class="fas fa-plus" (click)="editQuestion()" ></i>
-        </button>
+      <h1 class="text-gray-700 font-semibold text-2xl sm:text-3xl md:text-4xl">Administración de Preguntas</h1>
+      <!-- Botón de agregar pregunta -->
+      <button class="text-3xl sm:text-4xl text-black hover:text-blue-700" (click)="goToAgregarPregunta()">
+        <i class="fas fa-plus"></i>
+      </button>
     </div>
   
     <!-- Subtítulo centrado -->
     <div class="flex items-center justify-center space-x-4">
-        <h2 class="text-gray-700 text-lg sm:text-xl md:text-2xl">Preguntas:</h2>
+      <h2 class="text-gray-700 text-lg sm:text-xl md:text-2xl">Preguntas:</h2>
     </div>
   
     <!-- Contenedor para tabla responsiva -->
     <div class="flex justify-center w-full">
-        <div class="overflow-x-auto w-full max-w-screen-lg">
-            <table class="w-full border border-gray-300 text-xs sm:text-sm md:text-lg text-left text-gray-600">
-                <thead class="bg-blue-500 text-white">
-                    <tr>
-                        <th scope="col" class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300">Número</th>
-                        <th scope="col" class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300">Pregunta</th>
-                        <th scope="col" class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300">Respuesta A</th>
-                        <th scope="col" class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300">Respuesta B</th>
-                        <th scope="col" class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300">Respuesta C</th>
-                        <th scope="col" class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300">Respuesta D</th>
-                        <th scope="col" class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300">Correcta</th>
-                        <th scope="col" class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300 text-center">Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="border-t border-gray-300 hover:bg-gray-100" *ngFor="let question of questions">
-                        <td class="px-4 py-2 sm:px-6 sm:py-4 text-gray-700">{{ question.id_pregunta }}</td>
-                        <td class="px-4 py-2 sm:px-6 sm:py-4 text-gray-700">{{ question.descripcion }}</td>
-                        <td class="px-4 py-2 sm:px-6 sm:py-4 text-gray-700">{{ question.a }}</td>
-                        <td class="px-4 py-2 sm:px-6 sm:py-4 text-gray-700">{{ question.b }}</td>
-                        <td class="px-4 py-2 sm:px-6 sm:py-4 text-gray-700">{{ question.c }}</td>
-                        <td class="px-4 py-2 sm:px-6 sm:py-4 text-gray-700">{{ question.d }}</td>
-                        <td class="px-4 py-2 sm:px-6 sm:py-4 text-gray-700">{{ question.correcta }}</td>
-                        <td class="px-4 py-2 sm:px-6 sm:py-4 flex justify-center space-x-2 sm:space-x-4 text-gray-700">
-                            <button class="hover:text-blue-500 text-lg sm:text-xl"  (click)="viewQuestion(question.id_pregunta)">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="hover:text-blue-500 text-lg sm:text-xl" (click)="editQuestion()">
-                                <i class="fas fa-pen"></i>
-                            </button>
-                            <button class="hover:text-red-500 text-lg sm:text-xl" (click)="openModalEliminar()">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+      <div class="overflow-x-auto w-full max-w-screen-lg">
+        <table class="w-full border border-gray-300 text-xs sm:text-sm md:text-lg text-left text-gray-600">
+          <thead class="bg-blue-500 text-white">
+            <tr>
+              <th scope="col" class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300">Número</th>
+              <th scope="col" class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300">Pregunta</th>
+              <th scope="col" class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300">Respuesta A</th>
+              <th scope="col" class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300">Respuesta B</th>
+              <th scope="col" class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300">Respuesta C</th>
+              <th scope="col" class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300">Respuesta D</th>
+              <th scope="col" class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300">Correcta</th>
+              <th scope="col" class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300 text-center">Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-t border-gray-300 hover:bg-gray-100" *ngFor="let question of questions">
+              <td class="px-4 py-2 sm:px-6 sm:py-4 text-gray-700">{{ question.id_pregunta }}</td>
+              <td class="px-4 py-2 sm:px-6 sm:py-4 text-gray-700">{{ question.descripcion }}</td>
+              <td class="px-4 py-2 sm:px-6 sm:py-4 text-gray-700">{{ question.a }}</td>
+              <td class="px-4 py-2 sm:px-6 sm:py-4 text-gray-700">{{ question.b }}</td>
+              <td class="px-4 py-2 sm:px-6 sm:py-4 text-gray-700">{{ question.c }}</td>
+              <td class="px-4 py-2 sm:px-6 sm:py-4 text-gray-700">{{ question.d }}</td>
+              <td class="px-4 py-2 sm:px-6 sm:py-4 text-gray-700">{{ question.correcta }}</td>
+              <td class="px-4 py-2 sm:px-6 sm:py-4 flex justify-center space-x-2 sm:space-x-4 text-gray-700">
+                <button class="hover:text-blue-500 text-lg sm:text-xl" (click)="viewQuestion(question.id_pregunta)">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="hover:text-blue-500 text-lg sm:text-xl" (click)="editQuestion(question.id_pregunta)">
+                  <i class="fas fa-pen"></i>
+                </button>
+                <button class="hover:text-red-500 text-lg sm:text-xl" (click)="openModalEliminar(question.id_pregunta)">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <app-modal-eliminar-pregunta *ngIf="isModalEliminarOpen" (onClose)="handleEliminarPregunta($event)"></app-modal-eliminar-pregunta>
   </div>
