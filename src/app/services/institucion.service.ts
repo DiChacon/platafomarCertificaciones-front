@@ -11,17 +11,26 @@ export class InstitucionService {
   constructor(private httpClient: HttpClient) {
     this.url = environment.API_URL;
   }
-
-  // Método para obtener la institución a la que pertenece un alumno
-  async obtenerInstitucionPorAlumno(alumnoId: number): Promise<any> {
-    try {
-      const res = await this.httpClient.get(`${this.url}/instituciones/alumno/${alumnoId}`).toPromise();
-      return res;
-    } catch (error) {
-      console.error('Error al obtener la institución del alumno:', error);
-      throw error;
+    // Método para obtener todas las instituciones
+    async obtenerInstituciones(): Promise<any> {
+      try {
+        const res = await this.httpClient.get(`${this.url}/find_instituciones`).toPromise();
+        return res;
+      } catch (error) {
+        console.error('Error al obtener las instituciones:', error);
+        throw error;
+      }
     }
-  }
+
+    async obtenerInstitucionPorId(id_institucion: number): Promise<any> {
+      try {
+        const res = await this.httpClient.get(`${this.url}/find_inst?id_institucion=${id_institucion}`).toPromise();
+        return res;
+      } catch (error) {
+        console.error('Error al obtener la institución por ID:', error);
+        throw error;
+      }
+    }
 
   // Método para crear una nueva institución
   async crearInstitucion(data: any): Promise<any> {

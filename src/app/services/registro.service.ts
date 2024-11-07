@@ -12,7 +12,7 @@ export class RegistroService {
     this.url = environment.API_URL;
   }
   async registro(data: any){
-    const res: any = await this.httpClient.post(this.url+'/register',data).toPromise();
+    const res: any = await this.httpClient.post(this.url+'/create_user',data).toPromise();
     return res;
 }
   // Método para actualizar un usuario específico

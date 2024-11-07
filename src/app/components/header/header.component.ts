@@ -8,7 +8,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  constructor(private router: Router) {}
+  nombreUsuario: string | null = '';
+  institucionUsuario: string | null = '';
+
+  constructor(private router: Router) {
+    // Carga los datos de nombre de usuario e institución del local storage
+    this.nombreUsuario = localStorage.getItem('nombreUsuario');
+    this.institucionUsuario = localStorage.getItem('institucionUsuario');
+  }
 
   navigateTo(route: string) {
     this.router.navigate([`/${route}`]);

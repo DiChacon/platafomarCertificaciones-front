@@ -11,17 +11,18 @@ export class PreguntaService {
   constructor(private httpClient:HttpClient) { 
     this.url = environment.API_URL;
   }
-    // Método para obtener una pregunta por ID
-    async obtenerPreguntaPorId(preguntaId: string): Promise<any> {
-      try {
-        const res = await this.httpClient.get(`${this.url}/find_pregunta?id=${preguntaId}`).toPromise();
-        return res;
-      } catch (error) {
-        console.error('Error al obtener la pregunta:', error);
-        throw error;
-      }
+
+  async obtenerPreguntaPorId(id_pregunta: string): Promise<any> {
+    try {
+      // Realiza una solicitud GET para obtener la pregunta por ID
+      const res = await this.httpClient.get(`${this.url}/find_pregunta?id_pregunta=${id_pregunta}`).toPromise();
+      return res;
+    } catch (error) {
+      console.error('Error al obtener la pregunta:', error);
+      throw error;
     }
-    
+  }
+
     // Método para obtener todas las preguntas
     async obtenerTodasLasPreguntas(): Promise<any> {
       try {

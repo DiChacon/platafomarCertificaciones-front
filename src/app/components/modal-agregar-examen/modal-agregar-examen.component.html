@@ -20,7 +20,7 @@
       <!-- Select para elegir el curso -->
       <label for="curso" class="text-gray-700 font-medium">Curso:</label>
       <select
-        formControlName="curso_id"
+        formControlName="id_curso"
         id="curso"
         class="w-full border border-gray-300 rounded-md px-4 py-2 mb-2 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         required
@@ -28,8 +28,8 @@
         <option value="" disabled selected>Seleccione un curso</option>
         <option *ngFor="let curso of cursos" [value]="curso.id_curso">{{ curso.nombre_curso }}</option>
       </select>
-      <div *ngIf="agregarForm.get('curso_id')?.invalid && agregarForm.get('curso_id')?.touched" class="text-red-500 text-sm mt-1">
-        <p *ngIf="agregarForm.get('curso_id')?.errors?.['required']">El curso es obligatorio.</p>
+      <div *ngIf="agregarForm.get('id_curso')?.invalid && agregarForm.get('id_curso')?.touched" class="text-red-500 text-sm mt-1">
+        <p *ngIf="agregarForm.get('id_curso')?.errors?.['required']">El curso es obligatorio.</p>
       </div>
 
       <div class="flex justify-end space-x-4 mt-4">

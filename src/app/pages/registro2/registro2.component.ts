@@ -1,45 +1,69 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { RegistroService } from '../../services/registro.service';
+import { InstitucionService } from '../../services/institucion.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-registro2',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
+    ReactiveFormsModule, 
     CommonModule
   ],
   templateUrl: './registro2.component.html',
-  styleUrl: './registro2.component.scss'
+  styleUrls: ['./registro2.component.scss']
 })
-export class Registro2Component {
+export class Registro2Component implements OnInit {
   registroForm = new FormGroup({
-    username: new FormControl(),
-    name: new FormControl(),
-    app: new FormControl(),
-    apm: new FormControl(),
-    email: new FormControl(),
-    institucion: new FormControl(),
-    carrera: new FormControl(),
-    password: new FormControl()
+    username: new FormControl('', [Validators.required]),
+    nombre: new FormControl('', [Validators.required]),
+    app: new FormControl('', [Validators.required]),
+    apm: new FormControl('', [Validators.required]),
+    correo: new FormControl('', [Validators.required, Validators.email]),
+    institucion: new FormControl('', [Validators.required]),
+    carrera: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)])
   });
 
-  constructor(private registroService: RegistroService){
+  instituciones: any[] = []; // Lista de instituciones
 
+  constructor(
+    private registroService: RegistroService,
+    private institucionService: InstitucionService
+  ) { }
+
+  ngOnInit() {
+    this.cargarInstituciones();
   }
-  async registro(form: any){
+
+  // Cargar instituciones desde el servicio
+  async cargarInstituciones() {
     try {
-      const data = await this.registroService.registro(form);
+      const data = await this.institucionService.obtenerInstituciones();
       if (data.ok) {
-        console.log(data);
-      
+        this.instituciones = data.data;
       } else {
-        alert('los datos no son correctos');
+        console.error('Error al cargar las instituciones:', data.message);
       }
     } catch (error) {
-      console.error('error',error);
+      console.error('Error en la solicitud de instituciones:', error);
     }
   }
 
+
+  async registro(form: any) {
+    try {
+      const data = await this.registroService.registro(form);
+      if (data.ok) {
+        alert('Usuario registrado exitosamente');
+        this.registroForm.reset(); // Limpiar el formulario
+      } else {
+        alert('Los datos no son correctos');
+      }
+    } catch (error) {
+      console.error('Error en el registro:', error);
+      alert('Ocurrió un error al registrar el usuario. Inténtelo nuevamente.');
+    }
+  }
 }

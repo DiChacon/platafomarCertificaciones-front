@@ -35,8 +35,8 @@ export class PreguntaAdminComponent implements OnInit {
     }
   }
 
-  viewQuestion() {
-    this.router.navigate(['inicio/admin-examen/admin-pregunta/ver-pregunta']);
+  viewQuestion(id_pregunta: string) {
+    this.router.navigate(['inicio/admin-examen/admin-pregunta/ver-pregunta', { id_pregunta: id_pregunta}]);
   }
 
   editQuestion() {
