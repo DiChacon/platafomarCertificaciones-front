@@ -25,6 +25,7 @@ export class EditarPreguntaComponent implements OnInit {
   });
 
   id_pregunta: string | null = null;
+  id_examen: any;
 
   constructor(
     private router: Router,
@@ -43,6 +44,7 @@ export class EditarPreguntaComponent implements OnInit {
     try {
       const response = await this.preguntaService.obtenerPreguntaPorId(id_pregunta);
       if (response.ok) {
+        this.id_examen = response.data.id_examen;
         this.agregarPreForm.patchValue({
           descripcion: response.data.descripcion,
           a: response.data.a,
@@ -60,7 +62,7 @@ export class EditarPreguntaComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['inicio/admin-examen/admin-pregunta']);
+    this.router.navigate(['inicio/admin-examen/admin-pregunta', { id_examen: this.id_examen}]);
   }
 
   async agregarPregunta(form: any) {

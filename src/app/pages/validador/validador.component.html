@@ -17,15 +17,13 @@
         formControlName="folio"
         type="text"
         placeholder="F-12345678"
-        class="w-full border border-gray-300 rounded-md px-4 py-2 text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-4"
+        class="w-full border rounded-md px-4 py-2 text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-4"
+        [ngClass]="{'border-red-500': validadorForm.get('folio')?.invalid && validadorForm.get('folio')?.touched}"
       >
-      <div *ngIf="validadorForm.get('folio')?.invalid && validadorForm.get('folio')?.touched" class="text-red-500 text-sm mt-1 w-full">
-        <p *ngIf="validadorForm.get('folio')?.errors?.['required']">El folio es obligatorio.</p>
-      </div>
       
       <!-- ReCAPTCHA Placeholder -->
       <div class="w-full h-16 bg-gray-200 flex justify-center items-center rounded-md mb-4">
-        <p class="text-gray-600">no soy un robot</p>
+        <p class="text-gray-600">No soy un robot</p>
         <!-- Aquí podrías integrar el reCAPTCHA de Google -->
       </div>
       
@@ -39,6 +37,10 @@
     </form>
     
     <!-- Modal -->
-    <app-modal *ngIf="isModalOpen" (closeModal)="closeModal()"></app-modal>
+    <app-modal 
+      *ngIf="isModalOpen" 
+      (closeModal)="closeModal()"
+      [certificado]="certificado">
+    </app-modal>
   </div>
 </div>

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalEliminarPreguntaComponent } from '../../components/modal-eliminar-pregunta/modal-eliminar-pregunta.component';
-import { Router } from '@angular/router';
 import { PreguntaService } from '../../services/pregunta.service';
 
 @Component({
@@ -13,19 +13,28 @@ import { PreguntaService } from '../../services/pregunta.service';
 })
 export class PreguntaAdminComponent implements OnInit {
   questions: any[] = [];
+  examId: string | null = null;
   isModalEliminarOpen = false;
-  preguntaSeleccionadaId: string | null = null; // ID de la pregunta seleccionada
+  preguntaSeleccionadaId: string | null = null;
 
-  constructor(private router: Router, private preguntaService: PreguntaService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private preguntaService: PreguntaService
+  ) {}
 
   ngOnInit(): void {
-    this.cargarPreguntas();
+    // Obtener el ID del examen desde la ruta
+    this.examId = this.route.snapshot.paramMap.get('id_examen');
+    if (this.examId) {
+      this.cargarPreguntasPorExamen(this.examId);
+    }
   }
 
-  async cargarPreguntas() {
+  // Método para obtener preguntas por ID de examen
+  async cargarPreguntasPorExamen(id_examen: string) {
     try {
-      const response = await this.preguntaService.obtenerTodasLasPreguntas();
-      console.log('Preguntas recibidas:', response);
+      const response = await this.preguntaService.obtenerPreguntasPorExamen(id_examen);
       if (response.ok) {
         this.questions = response.data;
       } else {
@@ -45,11 +54,13 @@ export class PreguntaAdminComponent implements OnInit {
   }
 
   goToAgregarPregunta() {
-    this.router.navigate(['inicio/admin-examen/admin-pregunta/agregar-pregunta']);
+    if (this.examId) {
+      this.router.navigate(['inicio/admin-examen/admin-pregunta/agregar-pregunta', { id_examen: this.examId }]);
+    }
   }
 
   openModalEliminar(id_pregunta: string) {
-    this.preguntaSeleccionadaId = id_pregunta; // Almacena el ID de la pregunta a eliminar
+    this.preguntaSeleccionadaId = id_pregunta;
     this.isModalEliminarOpen = true;
   }
 
@@ -67,7 +78,7 @@ export class PreguntaAdminComponent implements OnInit {
       } catch (error) {
         console.error('Error en la eliminación de la pregunta:', error);
       } finally {
-        this.preguntaSeleccionadaId = null; // Resetea el ID seleccionado
+        this.preguntaSeleccionadaId = null;
       }
     }
   }

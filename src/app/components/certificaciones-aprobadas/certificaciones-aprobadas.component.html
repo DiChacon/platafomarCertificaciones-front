@@ -1,9 +1,13 @@
 <section class="mb-8">
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-      <div class="bg-white p-3 border-4 border-gray-400 rounded-lg shadow-sm flex items-center space-x-32 max-w-xs ">
-        <p class="font-semibold text-gray-700 text-xs">Curso aprobado</p>
-        <img src="https://via.placeholder.com/100" alt="Icono de curso" class="h-16 w-16">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    <div *ngFor="let certificado of certificados" class="bg-white p-3 border-4 border-gray-400 rounded-lg shadow-sm flex items-center justify-between max-w-xs">
+      <div>
+        <p class="font-semibold text-gray-700 text-xs">{{ certificado.nombre_curso }}</p>
+        <p class="text-gray-600 text-sm">Duración: {{ certificado.duracion }} horas</p>
+        <p class="text-gray-500 text-xs">Folio: {{ certificado.folio }}</p>
+        <p class="text-gray-500 text-xs">Vigente hasta: {{ certificado.fecha_expira }}</p>
       </div>
-      <!-- Duplicar este bloque de tarjeta para agregar más certificados -->
+      <img src="https://via.placeholder.com/100" alt="Icono de curso" class="h-16 w-16">
     </div>
-  </section>
+  </div>
+</section>

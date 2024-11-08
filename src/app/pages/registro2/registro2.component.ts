@@ -23,7 +23,8 @@ export class Registro2Component implements OnInit {
     correo: new FormControl('', [Validators.required, Validators.email]),
     institucion: new FormControl('', [Validators.required]),
     carrera: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)])
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    confirmPassword: new FormControl('', [Validators.required])
   });
 
   instituciones: any[] = []; // Lista de instituciones
@@ -31,7 +32,7 @@ export class Registro2Component implements OnInit {
   constructor(
     private registroService: RegistroService,
     private institucionService: InstitucionService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.cargarInstituciones();
@@ -51,8 +52,18 @@ export class Registro2Component implements OnInit {
     }
   }
 
+  passwordsNoCoinciden(): boolean {
+    const password = this.registroForm.get('password')?.value;
+    const confirmPassword = this.registroForm.get('confirmPassword')?.value;
+    return password !== confirmPassword;
+  }
 
   async registro(form: any) {
+    if (this.passwordsNoCoinciden()) {
+      alert('Las contraseñas no coinciden');
+      return;
+    }
+
     try {
       const data = await this.registroService.registro(form);
       if (data.ok) {

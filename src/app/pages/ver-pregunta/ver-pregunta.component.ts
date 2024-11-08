@@ -12,6 +12,7 @@ import { PreguntaService } from '../../services/pregunta.service';
 })
 export class VerPreguntaComponent implements OnInit {
   pregunta: any;
+  id_examen: any;
 
   constructor(
     private router: Router,
@@ -25,12 +26,15 @@ export class VerPreguntaComponent implements OnInit {
 
   async obtenerPregunta() {
     const id_pregunta = this.route.snapshot.paramMap.get('id_pregunta'); // Toma el 'id' de la URL
+    
     if (id_pregunta) {
       try {
         // Llama al servicio para obtener la pregunta con el ID
         const response = await this.preguntaService.obtenerPreguntaPorId(id_pregunta);
+        console.log(response)
         if (response.ok) {
           this.pregunta = response.data;
+          this.id_examen = response.data.id_examen;
         } else {
           console.error('No se pudo encontrar la pregunta');
         }
@@ -41,6 +45,6 @@ export class VerPreguntaComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['inicio/admin-examen/admin-pregunta']);
+    this.router.navigate(['inicio/admin-examen/admin-pregunta', { id_examen: this.id_examen}]);
   }
 }

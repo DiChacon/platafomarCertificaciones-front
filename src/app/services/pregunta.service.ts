@@ -33,21 +33,20 @@ export class PreguntaService {
         throw error;
       }
     }
-   // metodo obtener todas las preguntas de un examen específico
-   async obtenerPreguntasPorExamen(examenId: string) {
-    try {
-      const res: any = await this.httpClient.get(`${this.url}/examenes/${examenId}/preguntas`).toPromise();
-      return res;
-    } catch (error) {
-      console.error('Error al obtener las preguntas del examen:', error);
-      throw error;
+    async obtenerPreguntasPorExamen(id_examen: string): Promise<any> {
+      try {
+        const res: any = await this.httpClient.get(`${this.url}/find_preguntasExamen/${id_examen}`).toPromise();
+        return res;
+      } catch (error) {
+        console.error('Error al obtener preguntas por examen:', error);
+        throw error;
+      }
     }
-  }
-  // metodo para agregar una pregunta
-  async agregarPregunta(data: any){
-    const res: any = await this.httpClient.post(this.url+'/create_pregunta',data).toPromise();
-    return res;
-}
+    // Metodo para agregar pregunta
+    async agregarPregunta(data: any) {
+      const res: any = await this.httpClient.post(this.url + '/create_pregunta', data).toPromise();
+      return res;
+    }
     // Método para borrar una pregunta
     async borrarPregunta(preguntaId: string): Promise<any> {
       try {

@@ -1,30 +1,30 @@
 <div class="p-6 w-full mx-auto space-y-8 pb-32">
-    <h1 class="text-gray-700 font-semibold text-2xl sm:text-3xl md:text-4xl text-center">Examen: &lt;&lt;Nombre del examen o curso&gt;&gt;</h1>
+    <h1 class="text-gray-700 font-semibold text-2xl sm:text-3xl md:text-4xl text-center">Examen: {{ examTitle }}</h1>
     <h2 class="text-gray-600 text-lg sm:text-xl md:text-2xl font-medium mt-4 text-center">Preguntas:</h2>
 
     <div class="flex justify-center w-full">
         <div class="overflow-x-auto w-full max-w-screen-lg">
-            <table class="w-full border border-gray-300 text-xs sm:text-sm md:text-base text-left text-gray-600">
+            <table class="w-full border text-gray-600">
                 <thead class="bg-blue-500 text-white">
                     <tr>
-                        <th class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300">Número</th>
-                        <th class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300">Pregunta</th>
-                        <th class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300">Respuesta 1</th>
-                        <th class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300">Respuesta 2</th>
-                        <th class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300">Respuesta 3</th>
-                        <th class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300">Respuesta 4</th>
-                        <th class="px-4 py-2 sm:px-6 sm:py-4 font-medium border border-gray-300">Respuesta correcta</th>
+                        <th class="px-4 py-2">Número</th>
+                        <th class="px-4 py-2">Pregunta</th>
+                        <th class="px-4 py-2">Respuesta A</th>
+                        <th class="px-4 py-2">Respuesta B</th>
+                        <th class="px-4 py-2">Respuesta C</th>
+                        <th class="px-4 py-2">Respuesta D</th>
+                        <th class="px-4 py-2">Correcta</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let question of examQuestions" class="border-t border-gray-300 hover:bg-gray-100">
-                        <td class="px-4 py-2 sm:px-6 sm:py-4 text-gray-700">{{ question.number }}</td>
-                        <td class="px-4 py-2 sm:px-6 sm:py-4 text-gray-700">{{ question.question }}</td>
-                        <td class="px-4 py-2 sm:px-6 sm:py-4 text-gray-700">{{ question.answers[0] }}</td>
-                        <td class="px-4 py-2 sm:px-6 sm:py-4 text-gray-700">{{ question.answers[1] }}</td>
-                        <td class="px-4 py-2 sm:px-6 sm:py-4 text-gray-700">{{ question.answers[2] }}</td>
-                        <td class="px-4 py-2 sm:px-6 sm:py-4 text-gray-700">{{ question.answers[3] }}</td>
-                        <td class="px-4 py-2 sm:px-6 sm:py-4 text-gray-700">{{ question.correctAnswer }}</td>
+                    <tr *ngFor="let question of examQuestions">
+                        <td>{{ question.number }}</td>
+                        <td>{{ question.question }}</td>
+                        <td>{{ question.a }}</td>
+                        <td>{{ question.b }}</td>
+                        <td>{{ question.c }}</td>
+                        <td>{{ question.d }}</td>
+                        <td>{{ question.correctAnswer }}</td>
                     </tr>
                 </tbody>
             </table>

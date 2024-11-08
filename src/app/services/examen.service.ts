@@ -11,7 +11,15 @@ export class ExamenService {
   constructor(private httpClient: HttpClient) { 
     this.url = environment.API_URL;
   }
-
+  async obtenerExamenConPreguntas(id: number) {
+    try {
+      const res: any = await this.httpClient.get(`${this.url}/find_examenPreguntas/${id}`).toPromise();
+      return res;
+    } catch (error) {
+      console.error('Error al obtener el examen con preguntas:', error);
+      throw error;
+    }
+  }
   // Método para obtener todos los exámenes
   async obtenerTodosLosExamenes(): Promise<any> {
     try {
@@ -35,7 +43,7 @@ export class ExamenService {
 
   async borrarExamen(examenId: string): Promise<any> {
     try {
-      const res: any = await this.httpClient.delete(`${this.url}/examenes/${examenId}`).toPromise();
+      const res: any = await this.httpClient.delete(`${this.url}/delete_examen/${examenId}`).toPromise();
       return res;
     } catch (error) {
       console.error('Error al borrar el examen:', error);

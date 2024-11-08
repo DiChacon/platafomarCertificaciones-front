@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PreguntaService } from '../../services/pregunta.service';
@@ -12,9 +12,9 @@ import { PreguntaService } from '../../services/pregunta.service';
     ReactiveFormsModule
   ],
   templateUrl: './agregar-pregunta.component.html',
-  styleUrl: './agregar-pregunta.component.scss'
+  styleUrls: ['./agregar-pregunta.component.scss']
 })
-export class AgregarPreguntaComponent {
+export class AgregarPreguntaComponent implements OnInit {
   agregarPreForm = new FormGroup({
     descripcion: new FormControl('', [Validators.required]),
     a: new FormControl('', [Validators.required]),
@@ -24,23 +24,41 @@ export class AgregarPreguntaComponent {
     correcta: new FormControl('', [Validators.required])
   });
 
-  constructor(private router: Router, private preguntaService: PreguntaService) {}
+  id_examen: string | null = null;
 
-  goBack() {
-    this.router.navigate(['inicio/admin-examen/admin-pregunta']);
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private preguntaService: PreguntaService
+  ) {}
+
+  ngOnInit(): void {
+    // Obtener el id_examen desde la URL
+    this.id_examen = this.route.snapshot.paramMap.get('id_examen');
   }
 
   async agregarPregunta(form: any) {
-    try {
-      const data = await this.preguntaService.agregarPregunta(form);
-      if (data.ok) {
-        console.log('Pregunta creada:', data);
-        this.goBack(); // Redirige a la lista después de guardar
-      } else {
-        alert('Los datos no son correctos');
+    if (this.id_examen) {
+      // Incluir el id_examen en los datos antes de enviarlos al backend
+      const preguntaData = { ...form, id_examen: this.id_examen };
+      try {
+        const response = await this.preguntaService.agregarPregunta(preguntaData);
+        if (response.ok) {
+          console.log('Pregunta creada:', response.data);
+          this.goBack(); // Redirigir al listado de preguntas del examen
+        } else {
+          alert('Error al agregar la pregunta');
+        }
+      } catch (error) {
+        console.error('Error al guardar la pregunta:', error);
       }
-    } catch (error) {
-      console.error('Error al guardar la pregunta:', error);
+    }
+  }
+
+  goBack() {
+    // Redirige al listado de preguntas del examen actual
+    if (this.id_examen) {
+      this.router.navigate(['inicio/admin-examen/admin-pregunta', { id_examen: this.id_examen }]);
     }
   }
 }

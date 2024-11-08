@@ -1,27 +1,25 @@
 <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-80 max-w-full">
-      <!-- Título -->
-      <h3 class="text-xl font-semibold text-center text-gray-800 mb-4">Certificado válido</h3>
-  
-      <!-- Información del certificado -->
-      <div class="text-gray-700 space-y-2 text-sm">
-        <p><span class="font-semibold">Folio:</span> <span class="text-blue-500">F-12345678</span></p>
-        <p><span class="font-semibold">Nombre:</span> Nombre del Alumno Completo</p>
-        <p><span class="font-semibold">Certificado:</span> Nombre del curso o certificado expedido</p>
-        <p><span class="font-semibold">Expedido:</span> dd/mm/aaaa</p>
-        <p><span class="font-semibold">Vigente hasta:</span> dd/mm/aaaa</p>
-        <p><span class="font-semibold">Estado:</span> 
-          <span class="text-green-600 font-bold">Activo</span> / 
-          <span class="text-red-600 font-bold">Expirado</span>
-        </p>
-      </div>
-  
-      <!-- Botón de Cerrar -->
-      <button 
-        (click)="close()" 
-        class="mt-6 w-full bg-gray-200 text-gray-700 font-semibold py-2 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        Cerrar
-      </button>
+  <div class="bg-white p-6 rounded-lg shadow-lg w-80 max-w-full">
+    <h3 class="text-xl font-semibold text-center text-gray-800 mb-4">
+      {{ certificado ? 'Certificado válido' : 'Certificado no encontrado' }}
+    </h3>
+
+    <div *ngIf="certificado" class="text-gray-700 space-y-2 text-sm">
+      <p><span class="font-semibold">Folio:</span> <span class="text-blue-500">{{ certificado.folio }}</span></p>
+      <p><span class="font-semibold">Nombre:</span> {{ certificado.nombre_completo }}</p>
+      <p><span class="font-semibold">Certificado:</span> {{ certificado.nombre_curso }}</p>
+      <p><span class="font-semibold">Duración:</span> {{ certificado.duracion }} horas</p>
+      <p><span class="font-semibold">Vigente hasta:</span> {{ certificado.fecha_expira }}</p>
+      <p>
+        <span class="font-semibold">Estado:</span>
+        <span [ngClass]="certificado.fecha_expira >= currentDate ? 'text-green-600 font-bold' : 'text-red-600 font-bold'">
+          {{ certificado.fecha_expira >= currentDate ? 'Activo' : 'Expirado' }}
+        </span>
+      </p>
     </div>
+
+    <button (click)="close()" class="mt-6 w-full bg-gray-200 text-gray-700 font-semibold py-2 rounded-md hover:bg-gray-300">
+      Cerrar
+    </button>
   </div>
-  
+</div>

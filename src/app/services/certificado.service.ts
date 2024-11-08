@@ -12,20 +12,25 @@ export class CertificadoService {
     this.url = environment.API_URL;
   }
    // metodo obtener certificados por ID de usuario
-   async obtenerCertificadosPorUsuario(idUsuario: number): Promise<any> {
+   async obtenerCertificadosPorUsuario(idUsuario: string): Promise<any> {
     try {
-      const res = await this.httpClient.get(`${this.url}/certificados/usuario/${idUsuario}`).toPromise();
+      const res = await this.httpClient.get(`${this.url}/buscar?id_usuario=${idUsuario}`).toPromise();
       return res;
     } catch (error) {
       console.error('Error al obtener certificados:', error);
       throw error;
     }
   }
-  //metodo para validar certificado
-  async validador(data: any){
-    const res: any = await this.httpClient.post(this.url+'/validador',data).toPromise();
-    return res;
-}
+  async validador(data: any): Promise<any> {
+    try {
+      // Realiza la solicitud GET al backend con el folio como query parameter
+      const res: any = await this.httpClient.get(`${this.url}/folio?folio=${data.folio}`).toPromise();
+      return res;
+    } catch (error) {
+      console.error('Error al validar el certificado:', error);
+      throw error;
+    }
+  }
 // Método para borrar un certificado
 async borrarCertificado(certificadoId: number): Promise<any> {
   try {
